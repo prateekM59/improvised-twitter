@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>
+			Testing local server
+		</title>
+		<script type="text/javascript" src="jQuery.js"></script>
+		<script type="text/javascript" src="Underscore.js"></script>
+		<script type="text/javascript" src="Backbone-min.js"></script>
+		<script type="text/javascript" src="TweetModel.js"></script>
+		<script type="text/javascript" src="TweetsModel.js"></script>
+		<style>
+			.author {
+				text-decoration: underline;
+			}
+			.edit, .delete {
+				color: blue;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>
+			Mini Twitter using Backbone
+		</h1>
+		
+		<form id="input-box">
+			<label>
+				Author:
+			</label>
+			<input type="text" name="author-name" id="author-name">
+			<label>
+				Status:
+			</label>
+			<input type="text" name="status-update" id="status-update">
+			<input type="submit" name="Post">
+		</form>
+
+		<div id="tweets-view">
+		</div>
+		
+		<script type="text/javascript">
+			var app = {};
+		</script>
+
+		<script type="text/javascript" src="TweetsView.js"></script>
+		<script type="text/javascript" src="TweetView.js"></script>
+
+		<script type="text/javascript">
+		    (function($) {
+				$(document).ready(function() {
+					app.tweets = new TweetList();
+					var appView = new TweetsView({model: app.tweets});			
+
+					$("#input-box").submit(function() {
+						var authorName = $("#author-name").val();
+						var status = $("#status-update").val();
+						var tweet = new Tweet({author: authorName, status: status});
+						app.tweets.add(tweet);
+						console.log(app.tweets.toJSON());
+						return false;         // To avoid submission
+					});
+				});
+		    })(jQuery);
+		</script>
+
+		<!-- Templates -->
+
+		<script type="text/template" id="tweet-template">
+			<span class="author">{{author}}</span>
+			<span>: </span>
+			<span class="status">{{status}}</span>
+			<span class="edit">[Edit]</span>
+			<span class="delete">[Delete]</span>
+		</script>
+
+
+
+	</body>
+</html
